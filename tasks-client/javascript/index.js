@@ -18,30 +18,33 @@ document.addEventListener("DOMContentLoaded", () => {
     function addToCard(json) {
         MAIN.innerHTML = ""
         json.forEach(task => {
-            showCard(task)
+            let newTask = new Task(task.id, task.name, task.dueDate, task.priority, task.activities)
+            // debugger
+            // showCard(newTask)
+            newTask.showCard()
         })
     }
 
-    function showCard(task) {
-        MAIN.innerHTML += `    <div class="card" data-id="${task.id}">
-        <p>${task.name}</p>
-        <h4>Activities:</h4>
-        <ul id="list${task.id}">
-    
-        </ul>
-        <button class="fa fa-plus" data-task-id="${task.id}"></button>
-      </div>`
-        let list = document.querySelector(`#list${task.id}`)
-        list.innerHTML = ""
-        task.activities.forEach(activity => {
-            if (activity.status === "done") {
-                list.innerHTML += `<li  class="strick" data-activity-id="${activity.id}"><button class="fa fa-trash" data-activity-id-delete="${activity.id}"></button>   ${activity.name}</li>`
-            } else {
-                list.innerHTML += `<li data-activity-id="${activity.id}"><button class="fa fa-trash" data-activity-id-delete="${activity.id}"></button>   ${activity.name}</li>`
-            }
+    // function showCard(task) {
+    //     MAIN.innerHTML += `    <div class="card" data-id="${task.id}">
+    //     <p>${task.name}</p>
+    //     <h4>Activities:</h4>
+    //     <ul id="list${task.id}">
 
-        })
-    }
+    //     </ul>
+    //     <button class="fa fa-plus" data-task-id="${task.id}"></button>
+    //   </div>`
+    //     let list = document.querySelector(`#list${task.id}`)
+    //     list.innerHTML = ""
+    //     task.activities.forEach(activity => {
+    //         if (activity.status === "done") {
+    //             list.innerHTML += `<li  class="strick" data-activity-id="${activity.id}"><button class="fa fa-trash" data-activity-id-delete="${activity.id}"></button>   ${activity.name}</li>`
+    //         } else {
+    //             list.innerHTML += `<li data-activity-id="${activity.id}"><button class="fa fa-trash" data-activity-id-delete="${activity.id}"></button>   ${activity.name}</li>`
+    //         }
+
+    //     })
+    // }
 
     MAIN.addEventListener("click", function (e) {
         // e.target is our targetted element.
