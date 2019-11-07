@@ -34,7 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let list = document.querySelector(`#list${task.id}`)
         list.innerHTML = ""
         task.activities.forEach(activity => {
-            list.innerHTML += `<li data-activity-id="${activity.id}">${activity.name}</li>`
+            if (activity.status === "done") {
+                list.innerHTML += `<li  class="strick" data-activity-id="${activity.id}"><button class="fa fa-trash" data-activity-id-delete="${activity.id}"></button>   ${activity.name}</li>`
+            } else {
+                list.innerHTML += `<li data-activity-id="${activity.id}"><button class="fa fa-trash" data-activity-id-delete="${activity.id}"></button>   ${activity.name}</li>`
+            }
+
         })
     }
 
@@ -50,6 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(e.target.getAttribute("data-task-id"))
             // addActivity(e.target.getAttribute("data-task-id"))
 
+        } else if (e.target && e.target.nodeName == "BUTTON" && e.target.getAttribute("data-trainer-id") == null) {
+            deleteActivity(e.target.getAttribute("data-activity-id-delete"))
+            console.log(e.target.getAttribute("data-activity-id-delete"))
+            // addActivity(e.target.getAttribute("data-task-id"))
         }
     });
 
@@ -108,4 +117,32 @@ document.addEventListener("DOMContentLoaded", () => {
             addActivity(taskID, activityName)
         }
     }
+
+    function deleteActivity(activityID) {
+        let configObj = {
+            method: "DELETE",
+        };
+        return fetch(ACTIVITIES_URL + `/${activityID}`, configObj)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (object) {
+                fetchActivities()
+
+            })
+            .catch(function (error) {
+
+
+            });
+    }
+
+    // document.querySelector("fa fa-trash").onmouseover = function () { mouseOver() };
+    // document.querySelector("fa fa-trash").onmouseout = function () { mouseOut() };
+
+    // function mouseOver() {
+    //     document.querySelector("fa fa-trash").style.visibility = "visible"
+    // }
+    // function mouseOut() {
+    //     document.querySelector("fa fa-trash").style.visibility = "hidden"
+    // }
 })
