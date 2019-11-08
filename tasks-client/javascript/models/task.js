@@ -10,8 +10,9 @@ class Task {
     showCard() {
         const MAIN = document.getElementsByTagName('main')[0]
 
-        MAIN.innerHTML += `    <div class="card" data-id="${this.id}">
-        <p>${this.name}</p>
+        MAIN.innerHTML += `    <div class="card card-block card-outline-primary" data-id="${this.id}">
+        <button class="delete_button btn btn-outline-primary" delete-task-id="${this.id}">DELETE</button>
+        <p>${this.name} (${this.priority})   ${this.dueDate} </p>
         <h4>Activities:</h4>
         <ul id="list${this.id}">
 
@@ -56,4 +57,23 @@ class Task {
             });
     }
 
+
+    static deleteTask(taskID) {
+
+        let configObj = {
+            method: "DELETE",
+        };
+        return fetch(Constants.TASKS_URL + `/${taskID}`, configObj)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (object) {
+                Activity.fetchActivities()
+
+            })
+            .catch(function (error) {
+
+
+            });
+    }
 }

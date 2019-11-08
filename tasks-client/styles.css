@@ -83,3 +83,12 @@ body {
     text-decoration: line-through
   }
   
+  .delete_button {
+    line-height: auto;
+    width: auto;
+    font-size: 12pt;
+    font-family: tahoma;
+    text-align: center;
+    margin-right: 0px;
+    background: red;
+}

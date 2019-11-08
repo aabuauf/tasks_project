@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     MAIN.addEventListener("click", function (e) {
+
         // e.target is our targetted element.
         // try doing console.log(e.target.nodeName), it will result LI
         if (e.target && e.target.nodeName == "LI" && e.target.getAttribute("data-activity-id") != null) {
@@ -17,6 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (e.target && e.target.nodeName == "BUTTON" && e.target.getAttribute("data-task-id") != null) {
             openprompt(e.target.getAttribute("data-task-id"))
             console.log(e.target.getAttribute("data-task-id"))
+            // addActivity(e.target.getAttribute("data-task-id"))
+        } else if (e.target && e.target.nodeName == "BUTTON" && e.target.getAttribute("delete-task-id") != null) {
+            Task.deleteTask(e.target.getAttribute("delete-task-id"))
+            console.log(e.target.getAttribute("delete-task-id"))
             // addActivity(e.target.getAttribute("data-task-id"))
 
         } else if (e.target && e.target.nodeName == "BUTTON" && e.target.getAttribute("data-trainer-id") == null) {
@@ -48,7 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-
+    // document.getElementById("show_high_priority_task_button").addEventListener("click", function (e) {
+    //     Activity.fetchActivitiesHigh()
+    // })
     // document.querySelector("fa fa-trash").onmouseover = function () { mouseOver() };
     // document.querySelector("fa fa-trash").onmouseout = function () { mouseOut() };
 
