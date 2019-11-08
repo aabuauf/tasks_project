@@ -30,4 +30,30 @@ class Task {
 
         })
     }
+
+    static addTask(taskName, taskDueDate, taskpriority) {
+        let configObj = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    "name": taskName,
+                    "dueDate": taskDueDate,
+                    "priority": taskpriority
+                }
+            )
+        };
+        return fetch(Constants.TASKS_URL, configObj)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (object) {
+                Activity.fetchActivities()
+            })
+            .catch(function (error) {
+            });
+    }
+
 }
